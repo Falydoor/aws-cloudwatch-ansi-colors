@@ -7,7 +7,7 @@
     "homepage_url": "https://github.com/Falydoor/aws-cloudwatch-ansi-colors",
     "content_scripts": [
         {
-            "all_frames" : true,
+            "all_frames": true,
             "matches": [
                 "https://console.aws.amazon.com/cloudwatch/home?region=*"
             ],
@@ -16,5 +16,8 @@
                 "main.js"
             ]
         }
-    ]
+    ],
+    "icons": {
+        "128": "icon128.png"
+    }
 }
