@@ -28,18 +28,18 @@ const codeToSpan = (code) => {
 // Replace ANSI escape code to HTML
 const callback = (mutationsList) => {
     mutationsList.forEach(function (mutation) {
-        mutation.addedNodes.forEach(function (node) {
-            if (node.classList && (node.classList.contains('cwdb-log-viewer-table-row-group') || node.classList.contains('cwdb-log-viewer-table-row-details'))) {
+        if (mutation.target.classList.contains('cwdb-log-viewer-table-row-group')) {
+            mutation.addedNodes.forEach(function (node) {
                 node.innerHTML = node.innerHTML.replace(pattern, function (code) {
                     return codeToSpan(code);
                 });
-            }
-        });
+            });
+        }
     });
 };
 
 // Observe DOM changes
-var node = document.getElementById('b');
+var node = document.getElementById('c');
 if (node) {
     var observer = new MutationObserver(callback);
     observer.observe(node, { subtree: true, childList: true });
