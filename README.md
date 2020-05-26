@@ -1,6 +1,6 @@
 # aws-cloudwatch-ansi-colors
 
-A Chrome extension that replaces the ANSI code with colors in Amazon CloudWatch.
+[A Chrome extension](https://chrome.google.com/webstore/detail/aws-cloudwatch-ansi-color/feoelakkoolicldilidmgbhpgabiodcd) that replaces the ANSI code with colors in Amazon CloudWatch.
 
 ### Before
 
