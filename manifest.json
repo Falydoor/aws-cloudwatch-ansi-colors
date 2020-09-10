@@ -1,6 +1,6 @@
 {
     "name": "AWS CloudWatch ANSI colors",
-    "version": "1.1",
+    "version": "1.2",
     "description": "This extension replaces ANSI escape sequences with the HTML equivalent in AWS CloudWatch (V1 and V2)",
     "manifest_version": 2,
     "author": "Theo Lebrun",
