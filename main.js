@@ -35,8 +35,8 @@ const callbackV2 = (mutationsList) => {
             let addedNode = mutation.addedNodes[0];
 
             // Initial logs
-            if (addedNode.nodeName === 'DIV' && addedNode.classList.length === 0 && target.nodeName === 'SPAN' && target.classList.length === 0 && !target.id) {
-                let events = addedNode.querySelectorAll('div.logs__log-events-table__cell');
+            if (addedNode.nodeName === 'SPAN' && addedNode.classList.length === 0 && target.nodeName === 'SPAN' && target.classList.length === 0 && !target.id) {
+                let events = addedNode.querySelectorAll('span.logs__log-events-table__cell');
                 if (events.length > 0) {
                     let node = events[0].firstChild;
                     if (node.classList.length === 0) {
@@ -46,19 +46,15 @@ const callbackV2 = (mutationsList) => {
             }
 
             // When a line is clicked
-            let isShow = addedNode.nodeName === 'DIV' && target.classList.contains('logs__log-events-table__formatted-message');
-            let isHide = addedNode.nodeName === '#text' && target.nodeName === 'DIV' && target.classList.length === 0 && mutation.addedNodes.length === 1 && target.nodeName === 'DIV' && mutation.removedNodes.length === 0;
+            let isShow = addedNode.nodeName === 'DIV' && mutation.previousSibling && mutation.previousSibling.classList && mutation.previousSibling.classList.contains('logs__log-events-table__cell');
             if (isShow) {
                 replaceCode(addedNode);
-            }
-            if (isHide) {
-                replaceCode(target);
             }
         }
 
         // Loaded logs
         let tr = target.parentNode ? target.parentNode.closest('tr') : undefined;
-        let cell = tr ? tr.querySelectorAll('div.logs__log-events-table__cell') : undefined;
+        let cell = tr ? tr.querySelectorAll('span.logs__log-events-table__cell') : undefined;
         if (mutation.type === 'characterData' && tr && cell.length > 1) {
             replaceCode(cell[1].firstChild);
         }
