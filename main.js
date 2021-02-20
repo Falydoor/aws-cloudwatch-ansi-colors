@@ -14,8 +14,14 @@ const colorCodes = {
     '[39m': '</span>',
 };
 
+const replaceEscapeCharacter = (string) => {
+    return string.replace(/[\u001b]+/g, '');
+}
+
 // ANSI escape code to HTML
 const replaceCode = (node) => {
+    node.innerHTML = replaceEscapeCharacter(node.innerHTML);
+
     node.innerHTML = node.innerHTML.replace(pattern, (code) => {
         if (!colorCodes[code]) {
             return code;
