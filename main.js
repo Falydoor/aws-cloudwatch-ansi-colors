@@ -13,7 +13,7 @@ const escape_codes = new Map(
         ['34', 'color:darkblue'],
         ['35', 'color:indigo'],
         ['36', 'color:darkcyan'],
-        ['39', 'color:lightgrey'],
+        ['39', 'color:black'],
         ['90', 'color:darkgrey'],
         ['91', 'color:red'],
         ['92', 'color:green'],
