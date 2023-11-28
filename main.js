@@ -13,6 +13,7 @@ const escape_codes = new Map(
         ['34', 'color:darkblue'],
         ['35', 'color:indigo'],
         ['36', 'color:darkcyan'],
+        ['37', 'color:darkgrey'],
         ['39', 'color:black'],
         ['90', 'color:darkgrey'],
         ['91', 'color:red'],
@@ -25,18 +26,32 @@ const escape_codes = new Map(
     ]
 );
 
-const match_pattern = /[\u001b]+(?:\[(\d+;?)*m)?/;
+const match_patterns = [/[\u001b]+(?:\[(\d+;?)*m)?/, /#033\[(\d+;?)*m/];
 
 
 const maybeReplaceText = (content) => {
 
-    if ((content || "").trim().length === 0){
+    if ((content || "").trim().length === 0) {
         return null;
     }
 
+    // Replace "#011" with tab
+    content = content.replace(/#011/g, "\t");
+
     let span_open = 0;
-    let match = content.match(match_pattern);
-    if(match === null){
+    let match = null;
+    let match_pattern = null;
+
+    // Try each patterns
+    for (i in match_patterns) {
+        match = content.match(match_patterns[i]);
+        if (match) {
+            match_pattern = match_patterns[i];
+            break;
+        }
+    }
+
+    if (match === null) {
         return null;
     }
     while (match !== null) {
@@ -46,7 +61,7 @@ const maybeReplaceText = (content) => {
             continue;
         }
         let modifiers = match.slice(1);
-        if(JSON.stringify(modifiers) === '["0"]') {
+        if (JSON.stringify(modifiers) === '["0"]') {
             let replacement = "";
             if (span_open > 0) {
                 replacement = "</span>";
@@ -88,8 +103,8 @@ function recurseNodes(nodes) {
         let updated = false;
         if (
             (node.dataset !== undefined && node.dataset.testid === 'logs__log-events-table__message') ||
-            (node.classList.contains('logs__log-events-table__content')  && node.parentNode.dataset.testid === 'logs__log-events-table__formatted-message')
-        ){
+            (node.classList.contains('logs__log-events-table__content') && node.parentNode.dataset.testid === 'logs__log-events-table__formatted-message')
+        ) {
             updated = maybeUpdateNode(node);
         }
         if (node.childNodes !== undefined && !updated) {
@@ -129,7 +144,7 @@ const callbackV2 = (mutationsList) => {
         }
 
 
-        if(target.nodeName === 'SPAN' && target.classList.length === 0 && !target.id && target.dataset !== undefined  && target.dataset.testid === 'logs__log-events-table__message'){
+        if (target.nodeName === 'SPAN' && target.classList.length === 0 && !target.id && target.dataset !== undefined && target.dataset.testid === 'logs__log-events-table__message') {
             for (let i = 0; i < len_nodes; i++) {
                 let node = mutation.addedNodes[i];
                 if (node.nodeName === "#text") {
