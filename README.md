@@ -9,3 +9,8 @@
 ### After
 
 ![with color](https://raw.githubusercontent.com/Falydoor/aws-cloudwatch-ansi-colors/master/screenshot-with-color.png "Screenshot with color")
+
+### Supported apps
+
+- Java Spring Boot
+- Node.js using [tslog](https://www.npmjs.com/package/tslog)
